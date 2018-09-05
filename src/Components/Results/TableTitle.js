@@ -5,6 +5,7 @@ class TableTitle extends Component {
     super(props)
     this.state = { details: false }
     this.formatTitle = this.formatTitle.bind(this)
+    this.confirmImage = this.confirmImage.bind(this)
   }
 
   // {this.formatTitle(this.props.title.Title, this.props.title.Year)}
@@ -14,6 +15,15 @@ class TableTitle extends Component {
     return `${title} (${year})`
   }
 
+  confirmImage = image => {
+    if (image === 'N/A') {
+      image = 'https://via.placeholder.com/300x200'
+    }
+    return image
+  }
+
+  componentDidMount() {}
+
   render() {
     return (
       <tr>
@@ -21,7 +31,10 @@ class TableTitle extends Component {
         <td>{this.props.title.Year}</td>
         <td>{this.props.title.Type}</td>
         <td>
-          <img src={this.props.title.Poster} alt={this.props.title.Title} />
+          <img
+            src={this.confirmImage(this.props.title.Poster)}
+            alt={this.props.title.Title}
+          />
         </td>
       </tr>
     )

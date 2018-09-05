@@ -1,15 +1,18 @@
 import React, { Component } from 'react'
 import TableTitle from './TableTitle'
+import './Table.css'
+import Search from './Search'
 import axios from 'axios'
 
 class Table extends Component {
   constructor(props) {
     super()
 
-    this.state = { titles: [] }
+    this.state = { titles: [], previousSort: '' }
 
     this.getTitles = this.getTitles.bind(this)
     this.sortTitles = this.sortTitles.bind(this)
+    this.handleSearch = this.handleSearch.bind(this)
   }
 
   getTitles = title => {
@@ -34,30 +37,57 @@ class Table extends Component {
     // })
   }
 
-  sortTitles = param => {
-    console.log(this.state.titles)
-    const titlesToSort = this.state.titles.sort().reverse()
-    console.log(titlesToSort)
-    this.setState({ titles: titlesToSort })
+  sortTitles = (objs, param) => {
+    let sorted
+    if (this.state.previousSort === param) {
+      sorted = objs.reverse()
+    } else
+      sorted = objs.sort(function(a, b) {
+        return a[param] > b[param] ? 1 : b[param] > a[param] ? -1 : 0
+      })
+
+    this.setState({ titles: sorted, previousSort: param })
   }
 
-  componentDidMount() {
-    this.getTitles('cinderella')
+  handleSearch = (e, title) => {
+    e.preventDefault()
+    console.log(title)
+    this.getTitles(title)
   }
+
+  componentDidMount() {}
 
   render() {
     return (
       <div className="title__table">
-        <table
-          className="table table-striped"
-          onClick={e => {
-            this.sortTitles()
-          }}>
+        <Search handleSearch={this.handleSearch} />
+        <table className="table table-striped">
           <thead>
             <tr>
-              <th scope="col">Title</th>
-              <th scope="col">Year</th>
-              <th scope="col">Type</th>
+              <th
+                className="sortable"
+                scope="col"
+                onClick={e => {
+                  this.sortTitles(this.state.titles, 'Title')
+                }}>
+                Title &#9650;
+              </th>
+              <th
+                className="sortable"
+                scope="col"
+                onClick={e => {
+                  this.sortTitles(this.state.titles, 'Year')
+                }}>
+                Year
+              </th>
+              <th
+                className="sortable"
+                scope="col"
+                onClick={e => {
+                  this.sortTitles(this.state.titles, 'Type')
+                }}>
+                Type
+              </th>
               <th scope="col">Poster</th>
             </tr>
 
