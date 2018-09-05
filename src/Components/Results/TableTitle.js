@@ -10,7 +10,6 @@ class TableTitle extends Component {
 
   // {this.formatTitle(this.props.title.Title, this.props.title.Year)}
   formatTitle = (title, year) => {
-    console.log('Hello there')
     console.log(title)
     return `${title} (${year})`
   }
@@ -32,6 +31,7 @@ class TableTitle extends Component {
         <td>{this.props.title.Type}</td>
         <td>
           <img
+            className="img-fluid"
             src={this.confirmImage(this.props.title.Poster)}
             alt={this.props.title.Title}
           />

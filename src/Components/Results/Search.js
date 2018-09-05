@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { findDOMNode } from 'react-dom'
-// import './Search.css'
+import './Search.css'
 
 class Search extends Component {
   constructor(props) {
@@ -18,9 +18,9 @@ class Search extends Component {
 
   render() {
     return (
-      <form className="row searchArea">
+      <form className="searchArea">
         <div className="col-md-6">
-          <div className="form-group">
+          <div className="form-group searchGroup">
             <input
               ref="title"
               type="text"

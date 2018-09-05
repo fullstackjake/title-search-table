@@ -1,0 +1,32 @@
+.searchArea {
+  margin-top: 20px;
+  text-align: left;
+}
+
+.search__input {
+  width: 100%;
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.searchButton {
+  text-align: left;
+  display: inline;
+}
+
+.searchGroup {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+}
+
+@media (max-width: 750px) {
+  .searchGroup {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .searchButton {
+    margin-top: 10px;
+  }
+}
