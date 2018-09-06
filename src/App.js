@@ -6,7 +6,8 @@ import Card from './Components/Title/Card'
 import { connect } from 'react-redux'
 
 const mapStateToProps = state => ({
-  activeTitle: state.activeTitle
+  activeTitle: state.activeTitle,
+  titleDetails: state.titleDetails
 })
 
 const mapDispatchToProps = dispatch => {
@@ -19,23 +20,36 @@ const mapDispatchToProps = dispatch => {
 
 class App extends Component {
   render() {
-    console.log(this.props.activeTitle)
-
     return (
       <div className="App container">
         <header className="App-header">
-          <img
+          {/* <img
             src={logo}
             className="App-logo"
             alt="logo"
             onClick={() => {
               this.props.showTitle()
             }}
-          />
-          {/* <h1 style={{ color: '#000' }}>Placeholder</h1> */}
+          /> */}
+          <h1
+            onClick={() => {
+              this.props.showTitle()
+            }}
+            style={{ color: '#000' }}>
+            Placeholder
+          </h1>
         </header>
         <Table />
         <Card />
+        <button
+          onClick={() => {
+            this.props.newTitle({
+              string: 'Hello String',
+              title: 'Stringer'
+            })
+          }}>
+          Make New
+        </button>
       </div>
     )
   }

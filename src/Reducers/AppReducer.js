@@ -13,10 +13,15 @@ const AppReducer = (state = InitState, action) => {
       return { ...state, activeTitle: false }
 
     case 'NEW_TITLE':
+      console.log('NEW_TITLE CLICKED')
+      console.log(action.data)
       return { ...state, titleDetails: action.data }
 
-    default:
-      return state
+    default: {
+      return {
+        ...state
+      }
+    }
   }
 }
 
