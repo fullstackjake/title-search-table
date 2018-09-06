@@ -18,7 +18,6 @@ class Card extends Component {
   }
 
   render() {
-    console.log(this.props.titleDetails)
     return (
       <div className="row">
         <div className="col-md-6">

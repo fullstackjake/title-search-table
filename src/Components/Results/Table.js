@@ -46,10 +46,9 @@ class Table extends Component {
       .then(response => {
         let titles = response.data.Search
         this.setState({ titles: titles })
-        console.log(this.state.titles)
       })
       .catch(error => {
-        console.log(error)
+        // console.log(error)
         this.setState({ titles: undefined })
       })
   }
@@ -69,7 +68,6 @@ class Table extends Component {
 
   handleSearch = (e, title) => {
     e.preventDefault()
-    console.log(title)
     this.getTitles(title)
   }
 
@@ -84,13 +82,13 @@ class Table extends Component {
         this.props.showTitle()
       })
       .catch(error => {
-        console.log(error)
+        // console.log(error)
         this.props.newTitle({ error: error })
       })
   }
 
   componentDidMount() {}
-
+  // TODO: title__table Needs to be detach for readability!
   render() {
     return (
       <div>
@@ -104,6 +102,9 @@ class Table extends Component {
             <div className="row">
               {this.state.titles ? (
                 <div className="table-responsive">
+                  <h5 style={{ textAlign: 'center' }}>
+                    Click on poster for more details
+                  </h5>
                   <table className="table table-striped">
                     <thead>
                       <tr>
