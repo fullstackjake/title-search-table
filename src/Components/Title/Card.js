@@ -7,8 +7,6 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => {
   return {
-    newTitle: title => dispatch({ type: 'NEW_TITLE', data: title }),
-    showTitle: () => dispatch({ type: 'SHOW_TITLE' }),
     hideTitle: () => dispatch({ type: 'HIDE_TITLE' })
   }
 }
@@ -20,9 +18,27 @@ class Card extends Component {
   }
 
   render() {
+    console.log(this.props.titleDetails)
     return (
-      <div>
-        <h1>Hello From Card</h1>
+      <div className="row">
+        <div className="col-md-6">
+          <div className="card">
+            <img
+              className="card-img-top"
+              src={this.props.titleDetails.Poster}
+              alt="Card cap"
+            />
+            <div className="card-body">
+              <h5 className="card-title">{this.props.titleDetails.Title}</h5>
+              <p className="card-text">{this.props.titleDetails.Plot}</p>
+              <button
+                onClick={() => this.props.hideTitle()}
+                className="btn btn-primary">
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     )
   }

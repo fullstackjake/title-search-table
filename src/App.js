@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import logo from './avoxi-logo.png'
 import './App.css'
 import Table from './Components/Results/Table'
-import Card from './Components/Title/Card'
 import { connect } from 'react-redux'
 
 const mapStateToProps = state => ({
@@ -40,16 +39,6 @@ class App extends Component {
           </h1>
         </header>
         <Table />
-        <Card />
-        <button
-          onClick={() => {
-            this.props.newTitle({
-              string: 'Hello String',
-              title: 'Stringer'
-            })
-          }}>
-          Make New
-        </button>
       </div>
     )
   }

@@ -1,8 +1,23 @@
 import React, { Component } from 'react'
 import TableTitle from './TableTitle'
 import './Table.css'
+import Card from '../Title/Card'
 import Search from './Search'
 import axios from 'axios'
+import { connect } from 'react-redux'
+
+const mapStateToProps = state => ({
+  activeTitle: state.activeTitle,
+  titleDetails: state.titleDetails
+})
+
+const mapDispatchToProps = dispatch => {
+  return {
+    newTitle: title => dispatch({ type: 'NEW_TITLE', data: title }),
+    showTitle: () => dispatch({ type: 'SHOW_TITLE' }),
+    hideTitle: () => dispatch({ type: 'HIDE_TITLE' })
+  }
+}
 
 class Table extends Component {
   constructor(props) {
@@ -58,59 +73,90 @@ class Table extends Component {
     this.getTitles(title)
   }
 
+  moreDetails = titleId => {
+    let url = `http://www.omdbapi.com/?i=${titleId}&apikey=9f572b90`
+    // Api request
+    axios
+      .get(url)
+      .then(response => {
+        let title = response.data
+        this.props.newTitle(title)
+        this.props.showTitle()
+      })
+      .catch(error => {
+        console.log(error)
+        this.props.newTitle({ error: error })
+      })
+  }
+
   componentDidMount() {}
 
   render() {
     return (
-      <div className="title__table">
-        <Search handleSearch={this.handleSearch} />
-        <div className="row">
-          {this.state.titles ? (
-            <div className="table-responsive">
-              <table className="table table-striped">
-                <thead>
-                  <tr>
-                    <th
-                      className="sortable"
-                      scope="col"
-                      onClick={e => {
-                        this.sortTitles(this.state.titles, 'Title')
-                      }}>
-                      Title &#9650;
-                    </th>
-                    <th
-                      className="sortable"
-                      scope="col"
-                      onClick={e => {
-                        this.sortTitles(this.state.titles, 'Year')
-                      }}>
-                      Year
-                    </th>
-                    <th
-                      className="sortable"
-                      scope="col"
-                      onClick={e => {
-                        this.sortTitles(this.state.titles, 'Type')
-                      }}>
-                      Type
-                    </th>
-                    <th scope="col">Poster</th>
-                  </tr>
+      <div>
+        {this.props.activeTitle ? (
+          <div className="title__table">
+            <Card />
+          </div>
+        ) : (
+          <div className="title__table">
+            <Search handleSearch={this.handleSearch} />
+            <div className="row">
+              {this.state.titles ? (
+                <div className="table-responsive">
+                  <table className="table table-striped">
+                    <thead>
+                      <tr>
+                        <th
+                          className="sortable"
+                          scope="col"
+                          onClick={e => {
+                            this.sortTitles(this.state.titles, 'Title')
+                          }}>
+                          Title &#9650;
+                        </th>
+                        <th
+                          className="sortable"
+                          scope="col"
+                          onClick={e => {
+                            this.sortTitles(this.state.titles, 'Year')
+                          }}>
+                          Year
+                        </th>
+                        <th
+                          className="sortable"
+                          scope="col"
+                          onClick={e => {
+                            this.sortTitles(this.state.titles, 'Type')
+                          }}>
+                          Type
+                        </th>
+                        <th scope="col">Poster</th>
+                      </tr>
 
-                  {this.state.titles.map((title, index) => (
-                    <TableTitle key={index} title={title} />
-                  ))}
-                </thead>
-                <tbody />
-              </table>
+                      {this.state.titles.map((title, index) => (
+                        <TableTitle
+                          key={index}
+                          title={title}
+                          moreDetails={this.moreDetails}
+                        />
+                      ))}
+                    </thead>
+                    <tbody />
+                  </table>
+                </div>
+              ) : (
+                <h1>Sorry, no results</h1>
+              )}
             </div>
-          ) : (
-            <h1>Sorry, no results</h1>
-          )}
-        </div>
+          </div>
+        )}
       </div>
     )
   }
 }
 
-export default Table
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Table)

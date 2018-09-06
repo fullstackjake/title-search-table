@@ -34,6 +34,9 @@ class TableTitle extends Component {
             className="img-fluid"
             src={this.confirmImage(this.props.title.Poster)}
             alt={this.props.title.Title}
+            onClick={() => {
+              this.props.moreDetails(this.props.title.imdbID)
+            }}
           />
         </td>
       </tr>
