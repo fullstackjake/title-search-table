@@ -8,14 +8,14 @@ class App extends Component {
     return (
       <div className="App container">
         <header className="App-header">
-          <img
+          {/* <img
             src={logo}
             className="App-logo"
             alt="logo"
             onClick={() => {
               this.props.showTitle()
             }}
-          />
+          /> */}
           {/* <h1
             onClick={() => {
               this.props.showTitle()

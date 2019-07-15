@@ -38,7 +38,7 @@ class Table extends Component {
     // Really Long Titles exist: EXAMPLE TITLE Night of the Day of the Dawn of the Son of the Bride of the Return...
     title = title.substring(0, 300)
     // TODO: Api key can be added to exports file and ignored on git
-    let url = `https://www.omdbapi.com/?s=${title}&r=json&apikey=9f572b90`
+    let url = `https://www.omdbapi.com/?s=${title}&r=json&apikey=62ced95b`
 
     // Api request
     axios
